@@ -1,4 +1,4 @@
-![monroe](monroe.png)
+![monroe](adv/monroe.png)
 
 This framework is an open source solution to creating highly efficient
 *retro* **OpenGL** games under ***Windows/Linux***.
