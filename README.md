@@ -23,6 +23,7 @@ nuts over it. It's turbular, my man/girl.
 * **SDL2** (not included)
 * *stb_image.h*
 * *cute_sound.h* + *stb_vorbis.c*
+* *pl_mpeg.h* (not used yet!)
 * **PhysFS** (not included)
 * **glad**
 
