@@ -10,5 +10,8 @@
 #define SET_PLAY_PAN(snd, pin) cs_set_pan(&snd, (pin + 1.0f) / 2.0f)
 
 void mr_init_sound(void);
+/* PhysFS passthroughs */
+cs_loaded_sound_t mr_load_wav(const char* path);
+cs_loaded_sound_t mr_load_ogg(const char* path);
 void mr_play_sound(cs_playing_sound_t* snd);
 void mr_destroy_sound(void);
