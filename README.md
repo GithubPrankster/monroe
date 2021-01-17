@@ -5,7 +5,7 @@ This framework is an open source solution to creating highly efficient
 
 ## *Monroe in Action!*
 
-### Goal Boxing
+### Goal Boxing (WIP project by me and Nerdy San)
 Goal Boxing shows all games about goals who's box!
 Control *Jack Dominique Football* as he kicks a box into
 the goal with all his might, and hear the announcer go
