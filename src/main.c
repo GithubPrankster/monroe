@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 	glUseProgram(fbprg);
 	mr_shader_int(fbprg, "tex", 0);
 
-	mr_texture *mnro = mr_create_texture("adv/monroe.png");
+	mr_texture *mnro = mr_create_texture("adv/mandril.png");
 
 	mr_quad *qd = mr_create_quad();
 
