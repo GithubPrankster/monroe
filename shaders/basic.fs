@@ -24,9 +24,9 @@ vec3 dither(vec3 col, uvec4 fc)
 // I have no need for anything under/around 15-bit
 // If higher, only 24-bit, and at that point just disable
 // it lol
-vec4 band_color(vec4 col)
+vec3 band_color(vec3 col)
 {
-	const vec4 depth = vec4(vec3(15.0), 6.0);
+	const vec3 depth = vec3(15.0);
 	return floor(col * depth) / depth;
 }
 
@@ -34,12 +34,9 @@ void main()
 {
 	vec4 col = texture(tex, ruv);
 
-	// TODO: Blend modes (software side)
-
 	// Checking emulator behavior, dither occurs before banding
 	// So it's kino
-	col.rgb = dither(col.rgb, uvec4(gl_FragCoord));
-	col = band_color(col);
+	col.rgb = band_color(dither(col.rgb, uvec4(gl_FragCoord)));
 
 	frag = col;
 }

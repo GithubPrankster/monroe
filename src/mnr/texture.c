@@ -45,6 +45,12 @@ mr_texture *mr_create_texture(const char* path)
 	return tex;
 }
 
+void mr_bind_texture(const unsigned tex, const unsigned slot)
+{
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(GL_TEXTURE_2D, tex);
+}
+
 void mr_destroy_texture(mr_texture* tex)
 {
 	if(tex){

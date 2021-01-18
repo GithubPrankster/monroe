@@ -3,13 +3,15 @@
 * Framebuffer freedom: Because you believe in 320x180 rule.
 * Update sound to use PhysFS-based fileops: You think you could get away with not loading from the .7z?
 * Organize types/naming: We can all agree a sprite isn't merely a quad
-# Monroe TODO
 * Input Handling: A controller for you and me, and me and you
-* Animation support: NOTE maybe readoff a separate .anim file for specs for now
-* * FMV support: pl_mpeg.h already included, all it takes is being a bad enough dude
+# Monroe TODO
+* FMV support: pl_mpeg.h already included, all it takes is being a bad enough dude
+* * Blend Function Chooser: cause *you* can be choosy.
+* * Animation support: NOTE maybe readoff a separate .anim file for specs for now
 * * Fixed-Point movement: floats are for chumps! 16.16 is the way to go.
 * * Fixed-Point platformer physics: just enough for a box and a cool dude
 * * Timer: 1 minute and you're out!
+* * Joystick Handling: Something to do with your hands that won't make you go blind
 * * * Barebones GUI: just enough for a cool (and omnious) countdown
 * * * RLE Score File: noob-proof achievement tracking
 * * * Woah, an actual game! (Goal Boxing)

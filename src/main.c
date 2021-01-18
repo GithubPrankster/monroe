@@ -6,6 +6,15 @@
 #include "mnr/texture.h"
 #include "mnr/audio.h"
 #include "mnr/fb.h"
+#include "mnr/input.h"
+
+static int pausey = 1;
+
+void keypress_handler(uint32_t key)
+{
+	if(key == SDL_SCANCODE_E)
+		pausey ^= 1;
+}
 
 int main(int argc, char** argv)
 {
@@ -15,6 +24,8 @@ int main(int argc, char** argv)
 	mr_init_fs(argv[0]);
 	mr_init_window("Monroe", width, height);
 	mr_init_sound();
+
+	mr_keypressed_ptr = keypress_handler;
 
 	cs_loaded_sound_t eurobeat = mr_load_ogg("audio/step-inside.ogg");
 	cs_playing_sound_t jump =  cs_make_playing_sound(&eurobeat);
@@ -42,32 +53,27 @@ int main(int argc, char** argv)
 	mat4 proj = mat4i;
 	mat4_ortho(proj, 0.0f, 640.f, 360.f, 0.0f, 0.0f, 1.0f);
 	
-	int pausey = 0;
 	glClearColor(0.1, 0.1, 0.6, 1.0);
 	int quitter = 0;
 	SDL_Event e;
 	while(!quitter){
 		while(SDL_PollEvent(&e)){
-			if(e.type == SDL_QUIT){
+			mr_handler_input(&e);
+			if(e.type == SDL_QUIT)
 				quitter = 1;
-			}
-			if(e.type == SDL_KEYUP){
-				switch(e.key.keysym.sym){
-				case SDLK_ESCAPE:
-					quitter = 1;
-					break;
-				case SDLK_e:
-					pausey ^= 1;
-					cs_pause_sound(&jump, pausey);
-				default:
-					break;
-				}
-			}
 		}
 
+		mr_handler_mouse();
+
+		if(keys_arr[SDL_SCANCODE_ESCAPE])
+			quitter = 1;
+
+		cs_pause_sound(&jump, pausey);
+
+		/* PSX-Like Step */
 		mr_bind_framebuffer(fb);
 
-		glBindTexture(GL_TEXTURE_2D, mnro->id);
+		mr_bind_texture(mnro->id, 0);
 
 		glUseProgram(prg);
 		mr_shader_mat4(prg, "model", model);
@@ -75,9 +81,10 @@ int main(int argc, char** argv)
 
 		mr_render_quad(qd);
 
+		/* Finished Step */
 		mr_unbind_framebuffer(width, height);
 
-		glBindTexture(GL_TEXTURE_2D, fb->tex_id);
+		mr_bind_texture(fb->tex_id, 0);
 
 		glUseProgram(fbprg);
 
