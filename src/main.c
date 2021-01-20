@@ -9,17 +9,26 @@
 #include "mnr/input.h"
 
 static int pausey = 1;
+/* I needed to add "startup" else face a minor race condition with playback pause */
+static int startup = 0; 
+
+cs_playing_sound_t jump;
 
 void keypress_handler(uint32_t key)
 {
-	if(key == SDL_SCANCODE_E)
+	if(key == SDL_SCANCODE_E){
+		if(!startup){
+			mr_play_sound(&jump);
+			startup = 1;
+		}
 		pausey ^= 1;
+	}
 }
 
 int main(int argc, char** argv)
 {
 	const unsigned width = 1280, height = 720;
-	puts("Monroe Framework 1.2 dev3");
+	puts("Monroe Framework 1.2 dev4");
 
 	mr_init_fs(argv[0]);
 	mr_init_window("Monroe", width, height);
@@ -28,9 +37,8 @@ int main(int argc, char** argv)
 	mr_keypressed_ptr = keypress_handler;
 
 	cs_loaded_sound_t eurobeat = mr_load_ogg("audio/step-inside.ogg");
-	cs_playing_sound_t jump =  cs_make_playing_sound(&eurobeat);
+	jump =  cs_make_playing_sound(&eurobeat);
 	SET_PLAY_VOL(jump, 0.25f);
-	mr_play_sound(&jump);
 
 	unsigned prg = mr_create_shader("shaders/basic.vs", "shaders/basic.fs");
 	glUseProgram(prg);
@@ -40,7 +48,7 @@ int main(int argc, char** argv)
 	glUseProgram(fbprg);
 	mr_shader_int(fbprg, "tex", 0);
 
-	mr_texture *mnro = mr_create_texture("adv/mandril.png");
+	mr_texture *mnro = mr_create_texture("adv/monroe.png");
 
 	mr_quad *qd = mr_create_quad();
 
