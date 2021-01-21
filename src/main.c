@@ -28,7 +28,7 @@ void keypress_handler(uint32_t key)
 int main(int argc, char** argv)
 {
 	const unsigned width = 1280, height = 720;
-	puts("Monroe Framework 1.2 dev4");
+	puts("Monroe Framework 1.3 dev1");
 
 	mr_init_fs(argv[0]);
 	mr_init_window("Monroe", width, height);

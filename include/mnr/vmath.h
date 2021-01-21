@@ -50,3 +50,15 @@ inline void mat4_translate(mat4 M, const vec3 s)
 	for(int i = 0; i < 3; ++i)
 		mat4a(M, 3, i) = s[i];
 }
+
+//TODO: these scale/translate functions kinda wack, separate set/add ones loool
+
+typedef int fixed;
+
+#define FIXED_POINT 16 /* 16.16 */
+#define FIXED_UNIT 1 << FIXED_POINT
+
+#define int2fix(value) ((value) << FIXED_POINT)
+#define fix2int(value) ((value) >> FIXED_POINT)
+
+// TODO: Fixed point math (mult/div)
