@@ -28,7 +28,7 @@ void keypress_handler(uint32_t key)
 int main(int argc, char** argv)
 {
 	const unsigned width = 1280, height = 720;
-	puts("Monroe Framework 1.3 dev2");
+	puts("Monroe Framework 1.3 dev3");
 
 	mr_init_fs(argv[0]);
 	mr_init_window("Monroe", width, height);
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
 	fixed x = 0, y = 0;
 	
-	glClearColor(0.1, 0.3, 0.6, 1.0);
+	glClearColor(0.2, 0.3, 0.6, 1.0);
 	int quitter = 0;
 	SDL_Event e;
 	while(!quitter){
@@ -93,10 +93,10 @@ int main(int argc, char** argv)
 		mat4_translate_forward(model, v3(fix2int(x), fix2int(y), 0.0f));
 
 		if(x != 0)
-			x -= (FIXED_UNIT >> 2) * sign(x);
+			x -= QUARTER_FIXED_UNIT * sign(x);
 
 		if(y != 0)
-			y -= (FIXED_UNIT >> 2) * sign(y);
+			y -= QUARTER_FIXED_UNIT * sign(y);
 
 		cs_pause_sound(&jump, pausey);
 
