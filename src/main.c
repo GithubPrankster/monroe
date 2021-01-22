@@ -28,7 +28,7 @@ void keypress_handler(uint32_t key)
 int main(int argc, char** argv)
 {
 	const unsigned width = 1280, height = 720;
-	puts("Monroe Framework 1.3 dev1");
+	puts("Monroe Framework 1.3 dev2");
 
 	mr_init_fs(argv[0]);
 	mr_init_window("Monroe", width, height);
@@ -55,13 +55,15 @@ int main(int argc, char** argv)
 	mr_framebuffer *fb = mr_create_framebuffer(320, 180);
 
 	mat4 model = mat4i;
-	mat4_scale(model, v3((float)mnro->w, (float)mnro->h, 0.0f));
-	mat4_translate(model, v3((float)mnro->w, (float)mnro->h, 0.0f));
+	mat4_scale(model, v3((float)mnro->w / 2.f, (float)mnro->h / 2.f, 0.0f));
+	mat4_translate(model, v3((float)mnro->w / 2.f, (float)mnro->h / 2.f, 0.0f));
 
 	mat4 proj = mat4i;
-	mat4_ortho(proj, 0.0f, 640.f, 360.f, 0.0f, 0.0f, 1.0f);
+	mat4_ortho(proj, 0.0f, fb->width, fb->height, 0.0f, 0.0f, 1.0f);
+
+	fixed x = 0, y = 0;
 	
-	glClearColor(0.1, 0.1, 0.6, 1.0);
+	glClearColor(0.1, 0.3, 0.6, 1.0);
 	int quitter = 0;
 	SDL_Event e;
 	while(!quitter){
@@ -75,6 +77,26 @@ int main(int argc, char** argv)
 
 		if(keys_arr[SDL_SCANCODE_ESCAPE])
 			quitter = 1;
+
+		if(keys_arr[SDL_SCANCODE_W])
+			y = int2fix(-4);
+
+		if(keys_arr[SDL_SCANCODE_S])
+			y = int2fix(4);
+
+		if(keys_arr[SDL_SCANCODE_A])
+			x = int2fix(-4);
+
+		if(keys_arr[SDL_SCANCODE_D])
+			x = int2fix(4);
+		
+		mat4_translate_forward(model, v3(fix2int(x), fix2int(y), 0.0f));
+
+		if(x != 0)
+			x -= (FIXED_UNIT >> 2) * sign(x);
+
+		if(y != 0)
+			y -= (FIXED_UNIT >> 2) * sign(y);
 
 		cs_pause_sound(&jump, pausey);
 
@@ -103,6 +125,8 @@ int main(int argc, char** argv)
 	
 	mr_destroy_texture(mnro);
 	mr_destroy_quad(qd);
+
+	mr_destroy_framebuffer(fb);
 
 	glDeleteProgram(fbprg);
 	glDeleteProgram(prg);
