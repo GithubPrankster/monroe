@@ -8,7 +8,7 @@
 
 typedef struct{
     SDL_Window* win;
-    SDL_GLContext ctx;
+    SDL_Renderer* rdr;
     uint32_t w, h;
 }mr_window;
 

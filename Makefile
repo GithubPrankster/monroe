@@ -1,7 +1,7 @@
 src = $(wildcard src/*.c) $(wildcard src/**/*.c) $(wildcard lib/**/*.c)
 obj = $(src:.c=.o)
 
-LDFLAGS = -Wl,-subsystem,console -lm -lphysfs -mwindows -lmingw32 -lopengl32 -lSDL2main -lSDL2
+LDFLAGS = -Wl,-subsystem,console -lm -lphysfs -mwindows -lmingw32 -lSDL2main -lSDL2
 CFLAGS = -Wall -O3 -march=native -mtune=native -s -Iinclude -std=gnu99
 
 ifdef STATIC

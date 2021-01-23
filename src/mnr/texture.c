@@ -3,8 +3,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "external/stb_image.h"
 
-#include <glad/glad.h>
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -27,34 +25,23 @@ mr_texture *mr_create_texture(const char* path)
 		return NULL;
 	}
 
-	glGenTextures(1, &tex->id);
 	tex->w = w;
 	tex->h = h;
 
-	glBindTexture(GL_TEXTURE_2D, tex->id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	stbi_image_free(data);
+	tex->data = data;
+	
 	return tex;
 }
 
-void mr_bind_texture(const unsigned tex, const unsigned slot)
+void mr_render_texture(mr_texture* tex)
 {
-	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, tex);
+
 }
 
 void mr_destroy_texture(mr_texture* tex)
 {
 	if(tex){
-		glDeleteTextures(1, &tex->id);
+		stbi_image_free(tex->data);
 		free(tex);
 	}
 }
