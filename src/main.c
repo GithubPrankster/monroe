@@ -1,4 +1,3 @@
-#include <glad/glad.h>
 #include "mnr/window.h"
 #include "mnr/file.h"
 #include "mnr/texture.h"
@@ -22,6 +21,11 @@ int main(int argc, char** argv)
 	mr_texture *mnro = mr_create_texture("adv/cone_cap_look.png");
 
 	fixed x = 0, y = 0;
+
+	SDL_Texture* scr = SDL_CreateTexture(mwin->rdr, SDL_PIXELFORMAT_RGBA5551, SDL_TEXTUREACCESS_STREAMING, 320, 180);
+	uint16_t* fbo = calloc(320 * 180, sizeof(uint16_t));
+	for(unsigned i = 0; i < 320; ++i)
+		fbo[i] = 0x1111 + i;
 	
 	int quitter = 0;
 	SDL_Event e;
@@ -39,8 +43,14 @@ int main(int argc, char** argv)
 
 		SDL_RenderClear(mwin->rdr);
 
+		SDL_UpdateTexture(scr, NULL, fbo, 320 * sizeof(uint16_t));
+		SDL_RenderCopy(mwin->rdr, scr, NULL, NULL);
+
 		SDL_RenderPresent(mwin->rdr);
 	}
+
+	free(fbo);
+	SDL_DestroyTexture(scr);
 	
 	mr_destroy_texture(mnro);
 	

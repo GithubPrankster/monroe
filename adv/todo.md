@@ -3,6 +3,14 @@
 since not only am I focusing on making 2d things to ease myself into stuff, but a few weights are
 lifted from me, some creativity possible and a possibility to learn more about implementing
 certain things.
+# TODO
+* Texture blitter
+* Dithering
+* Blend mode
+* * Sprite type
+* * Fixed Point "Platformer"
+* * Joystick support
+* * * HAHA, Goal Boxing!
 # Notes for Goal Boxing
 Goal Boxing is a very simple game. You kick a box into a goal and rack up a score in a minute.
 Every kick gets you an excited voice line from the announcer (voiced by Nerdy San)
