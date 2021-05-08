@@ -1,22 +1,31 @@
-/* quad vertex shader */
+@ctype mat4 hmm_mat4
+
 @vs vs
-in vec4 position;
-in vec4 color0;
-out vec4 color;
+in vec2 pos;
+in vec2 uv;
+
+uniform vs_params {
+    mat4 mvp;
+};
+
+out vec2 fuv;
 
 void main() {
-    gl_Position = position;
-    color = color0;
+    gl_Position = mvp * vec4(pos.x, pos.y, 0.0, 1.0);
+    fuv = uv;
 }
 @end
 
 /* quad fragment shader */
 @fs fs
-in vec4 color;
+uniform sampler2D tex;
+
 out vec4 frag_color;
 
+in vec2 fuv;
+
 void main() {
-    frag_color = color;
+    frag_color = texture(tex, fuv);
 }
 @end
 

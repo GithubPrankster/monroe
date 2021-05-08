@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\thirdparty\stb_vorbis.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\tiny_libs.c" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="include\shaders\quad.glsl.h" />
     <ClInclude Include="include\thirdparty\cute_png.h" />
     <ClInclude Include="include\thirdparty\cute_sound.h" />
+    <ClInclude Include="include\thirdparty\HandmadeMath.h" />
     <ClInclude Include="include\thirdparty\sokol_app.h" />
     <ClInclude Include="include\thirdparty\sokol_gfx.h" />
     <ClInclude Include="include\tiny_libs.h" />
