@@ -13,7 +13,6 @@
 sg_pass_action pass_action;
 sg_pipeline pipeline;
 sg_bindings bind;
-vs_params_t params;
 
 const float vertices[] = {
     // positions            colors
@@ -44,7 +43,6 @@ void init(void) {
         .data = SG_RANGE(indices),
         .label = "quad-indices"
     });
-
     bind.fs_images[SLOT_tex] = sg_alloc_image();
 
     pipeline = sg_make_pipeline(&(sg_pipeline_desc) {
@@ -62,11 +60,6 @@ void init(void) {
     cp_image_t cosmos = cp_load_png("assets/cosmic.png");
     cp_flip_image_horizontal(&cosmos);
 
-    hmm_mat4 model = HMM_MultiplyMat4(HMM_Scale(HMM_Vec3((float)cosmos.w, (float)cosmos.h, 0.0f)), 
-                                      HMM_Translate(HMM_Vec3((float)cosmos.w, (float)cosmos.h, 0.0f)));
-    hmm_mat4 proj = HMM_Orthographic(0.0f, 320.f, 180.f, 0.0f, 0.0f, 1.0f);
-    params.mvp = HMM_MultiplyMat4(proj, model);
-
     sg_init_image(bind.fs_images[SLOT_tex], &(sg_image_desc){
         .width = cosmos.w,
         .height = cosmos.h,
@@ -78,6 +71,7 @@ void init(void) {
             .size = (size_t)(cosmos.w * cosmos.h * 4),
         }
     });
+
     free(cosmos.pix);
 }
 
@@ -95,7 +89,6 @@ void frame(void) {
     sg_begin_default_pass(&pass_action, sapp_width(), sapp_height());
     sg_apply_pipeline(pipeline);
     sg_apply_bindings(&bind);
-    sg_apply_uniforms(SG_SHADERSTAGE_VS, SLOT_vs_params, &SG_RANGE(params));
     sg_draw(0, 6, 1);
     sg_end_pass();
     sg_commit();
