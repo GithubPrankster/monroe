@@ -1,4 +1,5 @@
 #define SOKOL_IMPL
+#define _CRT_SECURE_NO_WARNINGS
 
 #ifdef EMSCRIPTEN
 #define SOKOL_GLES3

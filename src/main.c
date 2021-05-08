@@ -90,7 +90,7 @@ sapp_desc sokol_main(int argc, char* argv[]) {
             .cleanup_cb = cleanup,
             .width = 1280,
             .height = 720,
-            .window_title = "Monroe",
+            .window_title = "Ratatan X",
             .icon.sokol_default = true
     };
 }
