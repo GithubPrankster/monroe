@@ -1,7 +1,7 @@
 ![monroe](adv/monroe_gh.png)
 
 This engine is an open source solution to creating highly efficient
-*retro* **OpenGL** games under ***Windows/Linux***. And mainly my insane solution
+*retro* **OpenGL** games under ***Windows/Linux(when i get stuff together..)***. And mainly my insane solution
 to achieving certain oddly specific techniques. It's fun sometimes. *Sometimes.*
 
 ## Monroe's Features
@@ -12,18 +12,14 @@ to achieving certain oddly specific techniques. It's fun sometimes. *Sometimes.*
 
 ## Libraries Used / Dependencies
 
-(Italics: single header lib, Bold: big/unusual lib)
-
-* **SDL2** (not included...)
-* *stb_image.h*
+* *sokol_gfx.h*
+* *sokol_app.h*
 * *cute_sound.h*
-* **PhysFS** (not included)
-* **glad**
+* *cute_png.h*
+* *cimgui.h*
+* *HandmadeMath.h*
 
-At most, you'll just need `make` and `GCC`. 
-Get you the newest one though! May compile way better.
-(this project is currently being developed on Windows. I apologize
-for needing to modify the Makefile for Linux purposes.)
+This is a VS2019 proj. You know what to do if you use it...
 
 ## License
 
